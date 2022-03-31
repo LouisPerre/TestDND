@@ -12,7 +12,7 @@ class DataProcess
     private $jsonOutput;
     private $tableOutput;
 
-    public function __construct(jsonOutput $jsonOutput, TableOutput $tableOutput)
+    public function __construct(JsonOutput $jsonOutput, TableOutput $tableOutput)
     {
         $this->jsonOutput = $jsonOutput;
         $this->tableOutput = $tableOutput;
@@ -31,13 +31,21 @@ class DataProcess
                     $skipFirstLine = false;
                     continue;
                 }
-                $product = new Product($data);
+                $product = new Product();
+                $product
+                    ->setSku($data[0])
+                    ->setSlug($data[1])
+                    ->setStatus($data[2])
+                    ->setPrice($data[3])
+                    ->setCurrency($data[4])
+                    ->setDescription($data[5])
+                    ->setCreatedAt(new \DateTime($data[6]));
                 $productArray[$index] = [
                     'Sku' => $product->getSku(),
                     'Status' => $product->getStatus() ? 'Enable' : 'Disable',
                     'Price' => $product->getPrice(),
                     'Description' => $product->getDescription(),
-                    'Created At' => $product->getDate()->format('d-m-Y H:i:s'),
+                    'Created At' => $product->getCreatedAt()->format('l, j-M-Y H:i:s T'),
                     'Slug' => $product->getSlug()
                 ];
                 $index++;
