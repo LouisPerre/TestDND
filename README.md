@@ -1,4 +1,8 @@
 ## Installation ##
+1. Clone the repo,
+2. Run composer install
+3. `bin/console app:csvtotable products`
+
 
 ## To start the project ##
 Run the command :
