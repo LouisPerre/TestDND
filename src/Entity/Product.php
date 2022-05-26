@@ -110,12 +110,24 @@ class Product
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescriptionTable(?string $description): self
     {
         if (str_contains($description, '\r')) {
             $description = str_replace('\r', "\n", $description);
         }   elseif (str_contains($description, '<br/>')) {
             $description = str_replace('<br/>', "\n", $description);
+        }
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function setDescriptionJson(?string $description): self
+    {
+        if (str_contains($description, '\r')) {
+            $description = str_replace('\r', "", $description);
+        }   elseif (str_contains($description, '<br/>')) {
+            $description = str_replace('<br/>', "", $description);
         }
         $this->description = $description;
 

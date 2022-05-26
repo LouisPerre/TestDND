@@ -38,8 +38,13 @@ class DataProcess
                     ->setStatus($data[2])
                     ->setPrice($data[3])
                     ->setCurrency($data[4])
-                    ->setDescription($data[5])
                     ->setCreatedAt(new \DateTime($data[6]));
+                if ($format) {
+                    $product->setDescriptionJson($data[5]);
+                } else {
+                    $product->setDescriptionTable($data[5]);
+                }
+
                 $productArray[$index] = [
                     'Sku' => $product->getSku(),
                     'Status' => $product->getStatus() ? 'Enable' : 'Disable',
